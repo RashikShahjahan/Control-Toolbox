@@ -28,8 +28,7 @@ def to_array(str):
    return li
 
 def show_plot(x,y):
-    fig = Figure()
-    fig.plot(x,y)
+    plt.plot(x,y)
     output = io.BytesIO()
     FigureCanvas(fig).print_png(output)
     return Response(output.getvalue(), mimetype='image/png')
