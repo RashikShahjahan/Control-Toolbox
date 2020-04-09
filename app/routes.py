@@ -100,40 +100,14 @@ def home_page():
 
         if select == 'root locus':
             rlocus = control.matlab.rlocus(sys)
-            plt.plot(rlocus[0],rlocus[1])
-            display = plt.show()
-            return '''
-                      <html>
-                          <body>
-                              <p>{display}</p>
-                              <p><a href="/">Click here to go to the main menu</a>
-                          </body>
-                      </html>
-                  '''.format(display=display)
+            return show_plot(rlocus[0],rlocus[1])
 
         if select == 'bode':
             bode = control.matlab.bode((sys))
-            plt.plot(bode[0],bode[1])
-            display = plt.show()
-            return '''
-                          <html>
-                              <body>
-                                  <p>{display}</p>
-                                  <p><a href="/">Click here to go to the main menu</a>
-                              </body>
-                          </html>
-                      '''.format(display=display)
+            return show_plot(bode[0],bode[1])
 
         if select == 'nyquist':
             nyquist = control.matlab.nyquist((sys))
-            plt.plot(nyquist[0],nyquist[1])
-            display = plt.show()
-            return '''
-                          <html>
-                              <body>
-                                  <p>{display}</p>
-                                  <p><a href="/">Click here to go to the main menu</a>
-                              </body>
-                          </html>
-                      '''.format(display=display)
+            return show_plot(nyquist[0],nyquist[1])
+
     return render_template('options.html', errors=errors, options = options)
