@@ -46,11 +46,12 @@ def home_page():
 
         if select == 'Step Response':
              step = control.step_response(sys)
-             fig  = plt.plot(step[0],step[1])
+             plt.plot(step[0],step[1])
+             fig = plt.show()
              output = io.BytesIO()
              FigureCanvas(fig).print_png(output)
              return Response(output.getvalue(), mimetype='image/png')
-             #display = plt.show()
+
 
              return '''
                      <html>
