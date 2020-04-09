@@ -50,9 +50,11 @@ def home_page():
         if select == 'Step Response':
              step = control.step_response(sys)
              plt.plot(step[0],step[1])
-             plt.savefig('static/images/plot.png')
-             return render_template('plot.html', url='/static/images/plot.png')
-
+             img = io.BytesIO()
+             plt.savefig(img, format='png')
+             img.seek(0)
+             plot_url = base64.b64encode(img.getvalue()).decode()
+             return '<img src="data:image/png;base64,{}">'.format(plot_url)
 
         if select == 'properties':
             wn = math.sqrt(num1[0])
@@ -98,8 +100,8 @@ def home_page():
 
         if select == 'root locus':
             rlocus = control.matlab.rlocus(sys)
-            img = io.BytesIO()
             plt.plot(rlocus[0],rlocus[1])
+            img = io.BytesIO()
             plt.savefig(img, format='png')
             img.seek(0)
             plot_url = base64.b64encode(img.getvalue()).decode()
@@ -107,10 +109,20 @@ def home_page():
 
         if select == 'bode':
             bode = control.matlab.bode((sys))
-            return show_plot(bode[0],bode[1])
+            plt.plot(bode[0],bode[1])
+            img = io.BytesIO()
+            plt.savefig(img, format='png')
+            img.seek(0)
+            plot_url = base64.b64encode(img.getvalue()).decode()
+            return '<img src="data:image/png;base64,{}">'.format(plot_url)
 
         if select == 'nyquist':
             nyquist = control.matlab.nyquist((sys))
-            return show_plot(nyquist[0],nyquist[1])
+            plt.plot(nyquist[0],nyquist[1])
+            img = io.BytesIO()
+            plt.savefig(img, format='png')
+            img.seek(0)
+            plot_url = base64.b64encode(img.getvalue()).decode()
+            return '<img src="data:image/png;base64,{}">'.format(plot_url)
 
     return render_template('options.html', errors=errors, options = options)
