@@ -46,8 +46,9 @@ def home_page():
 
         if select == 'Step Response':
              step = control.step_response(sys)
-             plt.plot(step[0],step[1])
-             fig = plt.show()
+             fig = Figure()
+             axis = fig.add_subplot(1, 1, 1)
+             axis.plot(step[0],step[1])
              output = io.BytesIO()
              FigureCanvas(fig).print_png(output)
              return Response(output.getvalue(), mimetype='image/png')
