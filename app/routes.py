@@ -29,8 +29,7 @@ def to_array(str):
 
 def show_plot(x,y):
     fig = Figure()
-    axis = fig.add_subplot(1, 1, 1)
-    axis.plot(x,y)
+    plt.plot(x,y)
     output = io.BytesIO()
     FigureCanvas(fig).print_png(output)
     return Response(output.getvalue(), mimetype='image/png')
