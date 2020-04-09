@@ -27,9 +27,8 @@ def to_array(str):
 	   li.append(int(i))
    return li
 
-def show_plot(x,y):
-    plt.plot(x,y)
-    return plt.show()
+
+
 
 @app.route('/', methods=['GET', 'POST'])
 
@@ -49,7 +48,9 @@ def home_page():
 
         if select == 'Step Response':
              step = control.step_response(sys)
-             return show_plot(step[0],step[1])
+             plt.plot(step[0],step[1])
+             plt.savefig('static/images/plot.png')
+             return render_template('plot.html', url='/static/images/plot.png')
 
 
         if select == 'properties':
@@ -96,7 +97,9 @@ def home_page():
 
         if select == 'root locus':
             rlocus = control.matlab.rlocus(sys)
-            return show_plot(rlocus[0],rlocus[1])
+            plt.plot(rlocus[0],rlocus[1])
+            plt.savefig('static/images/plot.png')
+            return render_template('plot.html', url='/static/images/plot.png')
 
         if select == 'bode':
             bode = control.matlab.bode((sys))
