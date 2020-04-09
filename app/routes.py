@@ -53,16 +53,8 @@ def home_page():
 
         if select == 'Step Response':
              step = control.step_response(sys)
-             show_plot(step[0],step[1])
+             return show_plot(step[0],step[1])
 
-             return '''
-                     <html>
-                         <body>
-                             <img src="/plot.png" alt="my plot">
-                             <p><a href="/">Click here to go to the main menu</a>
-                         </body>
-                     </html>
-                 '''
 
         if select == 'properties':
             wn = math.sqrt(num1[0])
