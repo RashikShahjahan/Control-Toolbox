@@ -25,7 +25,7 @@ def to_array(str):
 
 @app.route('/', methods=['GET', 'POST'])
 
-def adder_page():
+def home_page():
     errors = ""
     options = ['Step Response', 'Properties', 'poles', 'zeros', 'root locus', 'bode', 'nyquist' ]
     if request.method == "POST":
@@ -41,8 +41,8 @@ def adder_page():
 
         if select == 'Step Response':
              step = control.step_response(sys)
-             plt.plot(step[0],step[1])
-             display = plt.show()
+             display = plt.plot(step[0],step[1])
+             #display = plt.show()
 
              return '''
                      <html>
