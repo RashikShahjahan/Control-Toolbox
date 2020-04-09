@@ -35,7 +35,7 @@ def to_array(str):
 
 def home_page():
     errors = ""
-    options = ['Step Response', 'Properties', 'poles', 'zeros', 'root locus', 'bode', 'nyquist' ]
+    options = ['Step Response', 'Properties', 'poles', 'zeros', 'root locus', 'bode', 'nyquist', 'sisotool' ]
     if request.method == "POST":
         num = request.form["num"]
         den = request.form["den"]
@@ -119,6 +119,14 @@ def home_page():
         if select == 'nyquist':
             nyquist = control.matlab.nyquist((sys))
             plt.plot(nyquist[0],nyquist[1])
+            img = io.BytesIO()
+            plt.savefig(img, format='png')
+            img.seek(0)
+            plot_url = base64.b64encode(img.getvalue()).decode()
+            return '<img src="data:image/png;base64,{}">'.format(plot_url)
+
+        if select == 'sisotool':
+            sisotool = control.matlab.sisotool((sys))
             img = io.BytesIO()
             plt.savefig(img, format='png')
             img.seek(0)
