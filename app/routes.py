@@ -12,6 +12,11 @@ from control.matlab import *
 import matplotlib.pyplot as plt
 import numpy as np
 import math
+import io
+import random
+from flask import Response
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from matplotlib.figure import Figure
 
 
 # ...
@@ -41,13 +46,16 @@ def home_page():
 
         if select == 'Step Response':
              step = control.step_response(sys)
-             display = plt.plot(step[0],step[1])
+             fig  = plt.plot(step[0],step[1])
+             output = io.BytesIO()
+             FigureCanvas(fig).print_png(output)
+             return Response(output.getvalue(), mimetype='image/png')
              #display = plt.show()
 
              return '''
                      <html>
                          <body>
-                             <p>{display}</p>
+                             <img src="/plot.png" alt="my plot">
                              <p><a href="/">Click here to go to the main menu</a>
                          </body>
                      </html>
