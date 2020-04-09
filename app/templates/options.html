@@ -1,0 +1,16 @@
+<html>
+      <body>
+          <p>Enter your numbers:</p>
+          <form method="post" action=".">
+              <p><input name="num" /></p>
+              <p><input name="den" /></p>
+              <p><input type="submit" value="Submit" /></p>
+              <select name= options method="post" action="/">
+                  {% for option in options %}
+                  <option value= "{{option}}" SELECTED>{{option}}</option>"
+                  {% endfor %}
+              </select>
+          </form>
+
+      </body>
+  </html>
