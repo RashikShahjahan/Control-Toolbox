@@ -27,6 +27,13 @@ def to_array(str):
 	   li.append(int(i))
    return li
 
+def show_plot(x,y):
+    fig = Figure()
+    axis = fig.add_subplot(1, 1, 1)
+    axis.plot(x,y)
+    output = io.BytesIO()
+    FigureCanvas(fig).print_png(output)
+    return Response(output.getvalue(), mimetype='image/png')
 
 @app.route('/', methods=['GET', 'POST'])
 
@@ -46,13 +53,7 @@ def home_page():
 
         if select == 'Step Response':
              step = control.step_response(sys)
-             fig = Figure()
-             axis = fig.add_subplot(1, 1, 1)
-             axis.plot(step[0],step[1])
-             output = io.BytesIO()
-             FigureCanvas(fig).print_png(output)
-             return Response(output.getvalue(), mimetype='image/png')
-
+             show_plot(step[0],step[1])
 
              return '''
                      <html>
@@ -61,7 +62,7 @@ def home_page():
                              <p><a href="/">Click here to go to the main menu</a>
                          </body>
                      </html>
-                 '''.format(display=display)
+                 '''
 
         if select == 'properties':
             wn = math.sqrt(num1[0])
