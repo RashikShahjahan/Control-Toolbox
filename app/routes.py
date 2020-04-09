@@ -97,9 +97,12 @@ def home_page():
 
         if select == 'root locus':
             rlocus = control.matlab.rlocus(sys)
+            img = io.BytesIO()
             plt.plot(rlocus[0],rlocus[1])
-            plt.savefig('static/images/plot.png')
-            return render_template('plot.html', url='/static/images/plot.png')
+            plt.savefig(img, format='png'
+            img.seek(0)
+            plot_url = base64.b64encode(img.getvalue()).decode()
+            return '<img src="data:image/png;base64,{}">'.format(plot_url)
 
         if select == 'bode':
             bode = control.matlab.bode((sys))
