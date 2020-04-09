@@ -39,9 +39,6 @@ def adder_page():
 
         select = request.form.get('options')
 
-
-
-
         if select == 'Step Response':
              step = control.step_response(sys)
              plt.plot(step[0],step[1])
@@ -51,7 +48,7 @@ def adder_page():
                      <html>
                          <body>
                              <p>{display}</p>
-                             <p><a href="/">Click here to calculate again</a>
+                             <p><a href="/">Click here to go to the main menu</a>
                          </body>
                      </html>
                  '''.format(display=display)
@@ -71,7 +68,7 @@ def adder_page():
                             <p>Settling time = {settle_time}s</p>
                             <p>Percentage overshoot = {percent_overshoot}%</p>
                             <p>Peak time = {peak_time}s</p>
-                            <p><a href="/">Click here to calculate again</a>
+                            <p><a href="/">Click here to go to the main menu</a>
                         </body>
                     </html>
                 '''.format(wn=wn, zeta=zeta, settle_time=settle_time, percent_overshoot=percent_overshoot, peak_time=peak_time )
@@ -82,7 +79,7 @@ def adder_page():
                       <html>
                           <body>
                               <p>The poles of the syestem are {poles}</p>
-                              <p><a href="/">Click here to calculate again</a>
+                              <p><a href="/">Click here to go to the main menu</a>
                           </body>
                       </html>
                    '''.format(poles=poles)
@@ -93,7 +90,7 @@ def adder_page():
                       <html>
                           <body>
                               <p>The zeros of the syestem are{zeros}</p>
-                              <p><a href="/">Click here to calculate again</a>
+                              <p><a href="/">Click here to go to the main menu</a>
                           </body>
                       </html>
                   '''.format(zeros=zeros)
@@ -106,7 +103,7 @@ def adder_page():
                       <html>
                           <body>
                               <p>{display}</p>
-                              <p><a href="/">Click here to calculate again</a>
+                              <p><a href="/">Click here to go to the main menu</a>
                           </body>
                       </html>
                   '''.format(display=display)
@@ -119,7 +116,7 @@ def adder_page():
                           <html>
                               <body>
                                   <p>{display}</p>
-                                  <p><a href="/">Click here to calculate again</a>
+                                  <p><a href="/">Click here to go to the main menu</a>
                               </body>
                           </html>
                       '''.format(display=display)
@@ -132,7 +129,7 @@ def adder_page():
                           <html>
                               <body>
                                   <p>{display}</p>
-                                  <p><a href="/">Click here to calculate again</a>
+                                  <p><a href="/">Click here to go to the main menu</a>
                               </body>
                           </html>
                       '''.format(display=display)
