@@ -25,7 +25,7 @@ def to_array(str):
    list = str.split (",")
    li = []
    for i in list:
-	   li.append(int(i))
+	   li.append(float(i))
    return li
 
 
