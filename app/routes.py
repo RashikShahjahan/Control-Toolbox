@@ -35,7 +35,7 @@ def to_array(str):
 
 def home_page():
     errors = ""
-    options = ['Step Response', 'Properties', 'poles', 'zeros', 'root locus', 'bode', 'nyquist', 'sisotool', 'dc gain', 'pole-zero plot' ]
+    options = ['Step Response', 'Properties', 'poles', 'zeros', 'root locus', 'bode', 'nyquist', 'sisotool', 'dc gain', 'pole-zero plot','Impulse Response' ]
     if request.method == "POST":
         num = request.form["num"]
         den = request.form["den"]
