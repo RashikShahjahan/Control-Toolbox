@@ -69,13 +69,15 @@ def home_page():
 
         if select == 'pole-zero plot':
              pz = control.matlab.pzmap(sys, Plot=True, grid=True)
-             plt.plot(pz[0],pz[1])
-             img = io.BytesIO()
-             plt.savefig(img, format='png')
-             plt.clf()
-             img.seek(0)
-             plot_url = base64.b64encode(img.getvalue()).decode()
-             return '<img src="data:image/png;base64,{}">'.format(plot_url)
+             '''
+                       <html>
+                           <body>
+                               <p>{pz}</p>
+                               <p><a href="/">Click here to go to the main menu</a>
+                           </body>
+                       </html>
+                    '''.format(pz=pz)
+
 
         if select == 'properties':
             wn = math.sqrt(num1[0])
