@@ -35,7 +35,7 @@ def to_array(str):
 
 def home_page():
     errors = ""
-    options = ['Step Response', 'Properties', 'poles', 'zeros', 'root locus', 'bode', 'nyquist', 'sisotool' ]
+    options = ['Step Response', 'Properties', 'poles', 'zeros', 'root locus', 'bode', 'nyquist', 'sisotool', 'dc gain', 'pole-zero plot' ]
     if request.method == "POST":
         num = request.form["num"]
         den = request.form["den"]
@@ -50,6 +50,26 @@ def home_page():
         if select == 'Step Response':
              step = control.step_response(sys)
              plt.plot(step[0],step[1])
+             img = io.BytesIO()
+             plt.savefig(img, format='png')
+             plt.clf()
+             img.seek(0)
+             plot_url = base64.b64encode(img.getvalue()).decode()
+             return '<img src="data:image/png;base64,{}">'.format(plot_url)
+
+        if select == 'Impulse Response':
+             impulse = control.matlab.impulse(sys)
+             plt.plot(impulse[0],impulse[1])
+             img = io.BytesIO()
+             plt.savefig(img, format='png')
+             plt.clf()
+             img.seek(0)
+             plot_url = base64.b64encode(img.getvalue()).decode()
+             return '<img src="data:image/png;base64,{}">'.format(plot_url)
+
+        if select == 'pole-zero plot':
+             pz = control.matlab.pzmap(sys, Plot=True, grid=True)
+             plt.plot(pz[0],pz[1])
              img = io.BytesIO()
              plt.savefig(img, format='png')
              plt.clf()
@@ -98,6 +118,17 @@ def home_page():
                           </body>
                       </html>
                   '''.format(zeros=zeros)
+
+        if select == 'dc gain':
+            dc_gain = control.matlab.dcgain(sys)
+            return '''
+                      <html>
+                          <body>
+                              <p>The dc gain of the syestem is{dc_gain}</p>
+                              <p><a href="/">Click here to go to the main menu</a>
+                          </body>
+                      </html>
+                  '''.format(dc_gain=dc_gain)
 
         if select == 'root locus':
             rlocus = control.matlab.rlocus(sys)
