@@ -35,7 +35,7 @@ def to_array(str):
 
 def home_page():
     errors = ""
-    options = ['Step Response', 'Properties', 'poles', 'zeros', 'root locus', 'bode', 'nyquist', 'sisotool', 'dc gain', 'pole-zero plot','Impulse Response' ]
+    options = ['Step Response', 'Properties', 'poles', 'zeros', 'root locus', 'bode', 'nyquist', 'sisotool', 'dc gain', 'pole-zero plot','Impulse Response','gain and phase margins' ]
     if request.method == "POST":
         num = request.form["num"]
         den = request.form["den"]
@@ -113,7 +113,7 @@ def home_page():
             return '''
                       <html>
                           <body>
-                              <p>The zeros of the syestem are{zeros}</p>
+                              <p>The zeros of the syestem are {zeros}</p>
                               <p><a href="/">Click here to go to the main menu</a>
                           </body>
                       </html>
@@ -124,11 +124,22 @@ def home_page():
             return '''
                       <html>
                           <body>
-                              <p>The dc gain of the syestem is{dc_gain}</p>
+                              <p>The dc gain of the syestem is {dc_gain}</p>
                               <p><a href="/">Click here to go to the main menu</a>
                           </body>
                       </html>
                   '''.format(dc_gain=dc_gain)
+
+        if select == 'gain and phase margins':
+            margins = control.matlab.margin(sys)
+            return '''
+                      <html>
+                          <body>
+                              <p>The gain and phase margins of the syestem are {margins}</p>
+                              <p><a href="/">Click here to go to the main menu</a>
+                          </body>
+                      </html>
+                  '''.format(margins=margins)
 
         if select == 'root locus':
             rlocus = control.matlab.rlocus(sys)
