@@ -78,15 +78,18 @@ def home_page():
 
 
         if select == 'damping':
-            damping_ratio = damp(sys)
+            damp = damp(sys)
+            natural_frequency = damp[0]
+            damping_ratio = damp[1]
 
             return '''
                     <html>
                         <body>
                             <p>damping ratio = {damping_ratio}</p>
+                            <p>natural frequency = {natural_frequency}</p>
                         </body>
                     </html>
-                '''.format(damping_ratio=damping_ratio )
+                '''.format(damping_ratio=damping_ratio, natural_frequency=natural_frequency)
 
         if select == 'poles':
             poles = control.pole(sys)
