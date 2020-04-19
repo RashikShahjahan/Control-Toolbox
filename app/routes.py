@@ -35,7 +35,7 @@ def to_array(str):
 
 def home_page():
     errors = ""
-    options = ['Step Response', 'Properties', 'Poles', 'zeros', 'root locus', 'bode', 'nyquist', 'sisotool', 'dc gain', 'pole-zero plot','Impulse Response','gain and phase margins' ]
+    options = ['Step Response', 'damping', 'Poles', 'zeros', 'root locus', 'bode', 'nyquist', 'sisotool', 'dc gain', 'pole-zero plot','Impulse Response','gain and phase margins' ]
     if request.method == "POST":
         num = request.form["num"]
         den = request.form["den"]
@@ -77,25 +77,16 @@ def home_page():
              return '<img src="data:image/png;base64,{}">'.format(plot_url)
 
 
-        if select == 'properties':
-            wn = math.sqrt(num1[0])
-            zeta = den1[1]/(2*wn)
-            settle_time = 4/(zeta*wn)
-            percent_overshoot = 100*math.exp((-1*math.pi*zeta)/math.sqrt(1-zeta**2))
-            peak_time = math.pi/(wn*math.sqrt(1-zeta**2))
+        if select == 'damping':
+            damping_ratio = damp(sys)
 
             return '''
                     <html>
                         <body>
-                            <p>wn = {wn}</p>
-                            <p>zeta = {zeta}</p>
-                            <p>Settling time = {settle_time}s</p>
-                            <p>Percentage overshoot = {percent_overshoot}%</p>
-                            <p>Peak time = {peak_time}s</p>
-                            <p><a href="/">Click here to go to the main menu</a>
+                            <p>damping ratio = {damping_ratio}</p>
                         </body>
                     </html>
-                '''.format(wn=wn, zeta=zeta, settle_time=settle_time, percent_overshoot=percent_overshoot, peak_time=peak_time )
+                '''.format(damping_ratio=damping_ratio )
 
         if select == 'poles':
             poles = control.pole(sys)
