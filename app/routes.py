@@ -78,9 +78,9 @@ def home_page():
 
 
         if select == 'damping':
-            damp = damp(sys)
-            natural_frequency = damp[0]
-            damping_ratio = damp[1]
+            damp1 = damp(sys)
+            natural_frequency = damp1[0]
+            damping_ratio = damp1[1]
 
             return '''
                     <html>
