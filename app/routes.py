@@ -35,7 +35,7 @@ def to_array(str):
 
 def home_page():
     errors = ""
-    options = ['Step Response', 'damping', 'Poles', 'zeros', 'root locus', 'bode', 'nyquist', 'sisotool', 'dc gain', 'pole-zero plot','Impulse Response','gain and phase margins' ]
+    options = ['Step Response', 'Initial Response', 'damping', 'Poles', 'zeros', 'root locus', 'bode', 'nyquist', 'sisotool', 'dc gain', 'pole-zero plot','Impulse Response','gain and phase margins' ]
     if request.method == "POST":
         num = request.form["num"]
         den = request.form["den"]
@@ -60,6 +60,16 @@ def home_page():
         if select == 'Impulse Response':
              impulse = control.matlab.impulse(sys)
              plt.plot(impulse[0],impulse[1])
+             img = io.BytesIO()
+             plt.savefig(img, format='png')
+             plt.clf()
+             img.seek(0)
+             plot_url = base64.b64encode(img.getvalue()).decode()
+             return '<img src="data:image/png;base64,{}">'.format(plot_url)
+
+        if select == 'Initial Response':
+             initial = control.matlab.initial(sys)
+             plt.plot(initial[0],initial[1])
              img = io.BytesIO()
              plt.savefig(img, format='png')
              plt.clf()
